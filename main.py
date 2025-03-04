@@ -1,6 +1,10 @@
 import pytest
 
+
+
 """
+# to run, write pytest main.py
+
 def potens(x):
     return (x * x)
 
