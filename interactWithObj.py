@@ -1,24 +1,24 @@
-from abc import ABC, abstractmethod 
+from abc import ABC, abstractmethod
 
 class Game:
     def __init__(self):
         self._scene1 = Scene()
         self._scene1.listAvailableElements()
 
-    def selectObject(self, theGameObject): #why is it string??
+    def selectObject(self, theGameObject):
         self._curretGameObj = self._scene1.isAvailable(theGameObject)
         if self._curretGameObj != None: 
             return self._curretGameObj.listInteractionTypes() #if exist return interactions
-        return ""
+        raise NameError("No such object")
 
     def selectInteraction(self, theInteraction):
         try:
             if theInteraction in self._curretGameObj.listInteractionTypes():
                 self._curretGameObj.setCurrentInteraction(theInteraction)
                 return self._curretGameObj.listCurrentInteractionOptions()
-            return "Not A Option!"
-        except TypeError:
-            return "Not A Option!"
+            return "Not an option!"
+        except TypeError: #Fixes when someone uses integers instead of strings (shouldn't be possible anyways as input returns string)
+            return "Not an option!"
         
 class Scene:
     def __init__(self):
@@ -26,14 +26,14 @@ class Scene:
         self._apple = GameObject("apple", ["PickUp", "Drop", "Taste", "Move", "Look"])
         self._chest = GameObject("chest", ["Open", "Look", "Move", "PickUp", "Drop"])
         self._gameObjList.append(self._apple)
-        self._gameObjList.append(self._chest) 
+        self._gameObjList.append(self._chest)
 
     def listAvailableElements(self):
         for gameObj in self._gameObjList:
             print(gameObj.name)
 
     def isAvailable(self, gameElement):
-        for element in self._gameObjList: #check if object exist
+        for element in self._gameObjList: #check if object exists
             if gameElement == element.name:
                 return element
         return None
@@ -42,7 +42,7 @@ class GameObject:
     def __init__(self, name, interactions):
         self.name = name
         self._interactionTypes = []
-        self._AcceptedInteractions = ["PickUp", "Drop", "Taste", "Move", "Look", "Open", "TurnOn", "TurnOff"]
+        self._AcceptedInteractions = ["PickUp", "Drop", "Taste", "Move", "Look", "Open", "TurnOn", "TurnOff"] 
         self._currentInteraction = ""
 
         for interaction in interactions:
