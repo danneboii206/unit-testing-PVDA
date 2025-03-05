@@ -7,7 +7,7 @@ class Game:
 
     def selectObject(self, theGameObject): #why is it string??
         self._curretGameObj = self._scene1.isAvailable(theGameObject)
-        if self._curretGameObj != None: #check if object exist
+        if self._curretGameObj != None: 
             return self._curretGameObj.listInteractionTypes() #if exist return interactions
         return ""
 
@@ -33,7 +33,7 @@ class Scene:
             print(gameObj.name)
 
     def isAvailable(self, gameElement):
-        for element in self._gameObjList:
+        for element in self._gameObjList: #check if object exist
             if gameElement == element.name:
                 return element
         return None
