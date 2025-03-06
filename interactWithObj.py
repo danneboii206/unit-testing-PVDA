@@ -4,22 +4,33 @@ class Game:
     def __init__(self):
         self._scene1 = Scene()
         self._scene1.listAvailableElements()
-        self._curretGameObj = ""
+       
     def selectObject(self, theGameObject):
-        self._curretGameObj = self._scene1.isAvailable(theGameObject)
-        if self._curretGameObj != None:
-            return self._curretGameObj.listInteractionTypes() #if exist return interactions
+        GameObj = self._scene1.isAvailable(theGameObject)
+        if GameObj != None:
+            self.currentGameObj = GameObjInterface(GameObj)
+            return GameObj.listInteractionTypes() #if exist return interactions
         raise NameError("No such object")
+
+class GameObjInterface:
+    def __init__(self, GameObj):
+        self._currentGameObj = GameObj
 
     def selectInteraction(self, theInteraction):
         try:
-            if theInteraction in self._curretGameObj.listInteractionTypes():
-                self._curretGameObj.setCurrentInteraction(theInteraction)
+            if theInteraction in self._currentGameObj.listInteractionTypes():
+                self._currentGameObj.setCurrentInteraction(theInteraction)
         except TypeError: #Fixes when someone uses integers instead of strings (shouldn't be possible anyways as input returns string)
             return "Not an option!"
         else:
-            return self._curretGameObj.listCurrentInteractionOptions()
-        
+            return self._currentGameObj.listCurrentInteractionOptions()
+    def setInteractionOptions(self, theOptions):
+        options = theOptions.split(",")
+        return self._currentGameObj.setCurrentInteractionOptions(options)
+    
+    def startInteraction(self):
+        return self._currentGameObj.startInteraction()
+
 class Scene:
     def __init__(self):
         self._gameObjList = []
@@ -57,7 +68,6 @@ class GameObject:
         for interaction in self._interactionTypes:
             interactionStr += f"{interaction}\n"          
         return interactionStr
-#     def startInteraction(theInteractionType):
 
     def setCurrentInteraction(self, theInteraction): #pure fabrication
         match theInteraction:
@@ -83,10 +93,16 @@ class GameObject:
     def listCurrentInteractionOptions(self):
         return f"{self._currentInteraction.availableInteractionOptions}"
 
-#     def setCurrentInteractionOptions():
+    def setCurrentInteractionOptions(self, options):
+        return self._currentInteraction.setInteractionOptions(options)
+
+    def startInteraction(self):
+        return self._currentInteraction.startInteraction()
+
 
 class InteractionType(ABC):
     def __init__(self):
+        self._interactionOptions = []
         super().__init__()
 
     @property
@@ -94,12 +110,12 @@ class InteractionType(ABC):
     def availableInteractionOptions(self): 
         pass
 
-    @abstractmethod
-    def startInteraction(self):
-        pass
+    def setInteractionOptions(self, options):
+        for option in options:
+            self._interactionOptions.append(option)
 
     @abstractmethod
-    def getAvailableOptions(self):
+    def startInteraction(self):
         pass
 
 class Drop(InteractionType):
@@ -107,101 +123,61 @@ class Drop(InteractionType):
     def availableInteractionOptions(self):
         return ["carefully", "nonchalantly"] 
 
-    def getAvailableOptions(self):
-        for option in self._availableInteractionOptions:
-            print(option)
-        return super().getAvailableOptions()
     def startInteraction(self):
-        print("interaction drop started...")
-        return super().startInteraction()
+        return f"interaction drop started with options{self._interactionOptions}..."
 
 class PickUp(InteractionType):
     @property
     def availableInteractionOptions(self):
         return ["carefully", "normaly"] 
 
-    def getAvailableOptions(self):
-        for option in self._availableInteractionOptions:
-            print(option)
-        return super().getAvailableOptions()
     def startInteraction(self):
-        print("interaction pickup started...")
-        return super().startInteraction()
+        return f"interaction pickup started with options{self._interactionOptions}..."
 
 class Look(InteractionType):
     @property
     def availableInteractionOptions(self):
         return ["carefully",] 
 
-    def getAvailableOptions(self):
-        for option in self._availableInteractionOptions:
-            print(option)
-        return super().getAvailableOptions()
     def startInteraction(self):
-        print("interaction look started...")
-        return super().startInteraction()
+        return f"interaction look started with options{self._interactionOptions}..."
 
 class Open(InteractionType):
     @property
     def availableInteractionOptions(self):
         return ["carefully",]
     
-    def getAvailableOptions(self):
-        for option in self._availableInteractionOptions:
-            print(option)
-        return super().getAvailableOptions()
     def startInteraction(self):
-        print("interaction open started...")
-        return super().startInteraction()
+        return f"interaction open started with options{self._interactionOptions}..."
 
 class Move(InteractionType):
     @property
     def availableInteractionOptions(self):
         return ["carefully", "aggressively",] 
 
-    def getAvailableOptions(self):
-        for option in self._availableInteractionOptions:
-            print(option)
-        return super().getAvailableOptions()
     def startInteraction(self):
-        print("interaction move started...")
-        return super().startInteraction()
+        return f"interaction move started with options{self._interactionOptions}..."
 
 class TurnOn(InteractionType):
     @property
     def availableInteractionOptions(self):
         return ["",] 
 
-    def getAvailableOptions(self):
-        for option in self._availableInteractionOptions:
-            print(option)
-        return super().getAvailableOptions()
     def startInteraction(self):
-        print("interaction turnon started...")
-        return super().startInteraction()
+        return f"interaction turnon started with options{self._interactionOptions}..."
 
 class TurnOff(InteractionType):
     @property
     def availableInteractionOptions(self):
         return ["",] 
 
-    def getAvailableOptions(self):
-        for option in self._availableInteractionOptions:
-            print(option)
-        return super().getAvailableOptions()
     def startInteraction(self):
-        print("interaction turnoff started...")
-        return super().startInteraction()
+        return f"interaction turnoff started with options{self._interactionOptions}..."
 
 class Taste(InteractionType):
     @property
     def availableInteractionOptions(self):
         return ["little", "alot"] 
     
-    def getAvailableOptions(self):
-        for option in self._availableInteractionOptions:
-            print(option)
-        return super().getAvailableOptions()
     def startInteraction(self):
-        print("interaction taste started...")
-        return super().startInteraction()
+        return f"interaction taste started with options{self._interactionOptions}..."

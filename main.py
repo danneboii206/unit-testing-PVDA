@@ -11,8 +11,10 @@ def main():
             break
         print("\nAvailable interactions:\n")
         print(game1.selectObject(usrInput))
-        usrInput = input ("Select interaction: ")
-        print(f"\nSelect interaction options:\n{game1.selectInteraction(usrInput)}")
-
+        usrInput = input("Select interaction: ")
+        print(f"\nSelect interaction options:\n{game1.currentGameObj.selectInteraction(usrInput)}")
+        usrInput = input("Enter Options split with (,): ")
+        game1.currentGameObj.setInteractionOptions(usrInput)
+        print(game1.currentGameObj.startInteraction())
 if __name__ == "__main__":
     main()

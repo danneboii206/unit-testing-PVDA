@@ -47,3 +47,6 @@ def test_SelectInteraction():
         assert apple.selectInteraction(f"{element}" == resStrDenied)
     for element in randomVals:
         assert chest.selectInteraction(f"{element}" == resStrDenied)
+
+def test_setOptionsStartInteraction():
+    
