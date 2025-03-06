@@ -7,12 +7,12 @@ def test_SelectObj():
 
     assert game.selectObject("apple") == "PickUp\nDrop\nTaste\nMove\nLook\n"
     assert game.selectObject("chest") == "Open\nLook\nMove\nPickUp\nDrop\n"
-        
+
     with pytest.raises(NameError) as err:
         game.selectObject("iaoghfioaj")
     assert err.type is NameError
-    
-def test_SelectInteraction(): 
+
+def test_SelectInteraction():
     '''test event 3 and 4'''
     apple = interact.Game()
     apple.selectObject("apple")
@@ -28,7 +28,7 @@ def test_SelectInteraction():
 
     randomVals = {"Monkey", 23}
 
-    resStrAccepted = "['now', 'later', 'aggressively', 'gently']"
+    resStrAccepted = "['alot', 'little', 'aggressively', 'gently']"
     resStrDenied = "Not an option!"
 
     #check if valid interactions return right interaction options

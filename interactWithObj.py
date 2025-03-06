@@ -4,10 +4,10 @@ class Game:
     def __init__(self):
         self._scene1 = Scene()
         self._scene1.listAvailableElements()
-
+        self._curretGameObj = ""
     def selectObject(self, theGameObject):
         self._curretGameObj = self._scene1.isAvailable(theGameObject)
-        if self._curretGameObj != None: 
+        if self._curretGameObj != None:
             return self._curretGameObj.listInteractionTypes() #if exist return interactions
         raise NameError("No such object")
 
@@ -19,7 +19,7 @@ class Game:
             return "Not an option!"
         except TypeError: #Fixes when someone uses integers instead of strings (shouldn't be possible anyways as input returns string)
             return "Not an option!"
-        
+
 class Scene:
     def __init__(self):
         self._gameObjList = []
@@ -47,7 +47,6 @@ class GameObject:
 
         for interaction in interactions:
             self.identifyInteractionType(interaction)
-        pass
 
     def identifyInteractionType(self, theInteraction): #gameobject has to create its own interactions
         if theInteraction in self._AcceptedInteractions:
@@ -56,30 +55,30 @@ class GameObject:
     def listInteractionTypes(self):
         interactionStr = ""
         for interaction in self._interactionTypes:
-            interactionStr += f"{interaction}\n"            
+            interactionStr += f"{interaction}\n"          
         return interactionStr
 #     def startInteraction(theInteractionType):
-    
+
     def setCurrentInteraction(self, theInteraction): #pure fabrication
         match theInteraction:
-                case "Drop":
-                    self._currentInteraction = Drop()
-                case "PickUp":
-                    self._currentInteraction = PickUp()
-                case "Taste": 
-                    self._currentInteraction = Taste()
-                case "Move":
-                    self._currentInteraction = Move()
-                case "Look":
-                    self._currentInteraction = Look()
-                case "Open":
-                    self._currentInteraction = Open()
-                case "TurnOn": 
-                    self._currentInteraction = TurnOn()
-                case "TurnOff":
-                    self._currentInteraction = TurnOff()
-                case _:
-                    raise ValueError(f"Unknown interaction: {theInteraction}")  # Handle unexpected input, should not be possible at this point
+            case "Drop":
+                self._currentInteraction = Drop()
+            case "PickUp":
+                self._currentInteraction = PickUp()
+            case "Taste":
+                self._currentInteraction = Taste()
+            case "Move":
+                self._currentInteraction = Move()
+            case "Look":
+                self._currentInteraction = Look()
+            case "Open":
+                self._currentInteraction = Open()
+            case "TurnOn":
+                self._currentInteraction = TurnOn()
+            case "TurnOff":
+                self._currentInteraction = TurnOff()
+            case _:
+                raise ValueError(f"Unknown interaction: {theInteraction}")  # Handle unexpected input, should not be possible at this point
 
     def listCurrentInteractionOptions(self):
         return f"{self._currentInteraction._availableInteractionOptions}"
@@ -88,7 +87,7 @@ class GameObject:
 
 class InteractionType(ABC):
     def __init__(self):
-        self._availableInteractionOptions = ["now", "later", "aggressively", "gently"]
+        self._availableInteractionOptions = ["alot", "little", "aggressively", "gently"]
         self._interactionOptions = ""
         super().__init__()
     @abstractmethod
@@ -99,8 +98,6 @@ class InteractionType(ABC):
         pass
 
 class Drop(InteractionType):
-    def __init__(self):
-        super().__init__()
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -108,10 +105,8 @@ class Drop(InteractionType):
     def startInteraction(self):
         print("interaction drop started...")
         return super().startInteraction()
-        
+
 class PickUp(InteractionType):
-    def __init__(self):
-        super().__init__()
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -121,8 +116,6 @@ class PickUp(InteractionType):
         return super().startInteraction()
 
 class Look(InteractionType):
-    def __init__(self):
-        super().__init__()
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -132,8 +125,6 @@ class Look(InteractionType):
         return super().startInteraction()
 
 class Open(InteractionType):
-    def __init__(self):
-        super().__init__()
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -143,8 +134,6 @@ class Open(InteractionType):
         return super().startInteraction()
 
 class Move(InteractionType):
-    def __init__(self):
-        super().__init__()
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -154,8 +143,6 @@ class Move(InteractionType):
         return super().startInteraction()
 
 class TurnOn(InteractionType):
-    def __init__(self):
-        super().__init__()
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -165,8 +152,6 @@ class TurnOn(InteractionType):
         return super().startInteraction()
 
 class TurnOff(InteractionType):
-    def __init__(self):
-        super().__init__()
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -176,8 +161,6 @@ class TurnOff(InteractionType):
         return super().startInteraction()
 
 class Taste(InteractionType):
-    def __init__(self):
-        super().__init__()
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
