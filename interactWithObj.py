@@ -95,7 +95,7 @@ class GameObject:
                 raise ValueError(f"Unknown interaction: {theInteraction}")  # Handle unexpected input, should not be possible at this point
 
     def listCurrentInteractionOptions(self):
-        return f"{self._currentInteraction.availableInteractionOptions}"
+        return self._currentInteraction.availableInteractionOptions
 
     def setCurrentInteractionOptions(self, options):
         return self._currentInteraction.setInteractionOptions(options)
@@ -129,7 +129,7 @@ class InteractionType(ABC):
 class Drop(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully", "nonchalantly"] 
+        return ["carefully", "nonchalantly"]
 
     def startInteraction(self):
         return f"interaction drop started with options{self._interactionOptions}..."
@@ -137,7 +137,7 @@ class Drop(InteractionType):
 class PickUp(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully", "normaly"] 
+        return ["carefully", "normally"]
 
     def startInteraction(self):
         return f"interaction pickup started with options{self._interactionOptions}..."
@@ -145,7 +145,7 @@ class PickUp(InteractionType):
 class Look(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully",] 
+        return ["inspect", "vaguely"]
 
     def startInteraction(self):
         return f"interaction look started with options{self._interactionOptions}..."
@@ -153,7 +153,7 @@ class Look(InteractionType):
 class Open(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully",]
+        return ["carefully", "quickly"]
     
     def startInteraction(self):
         return f"interaction open started with options{self._interactionOptions}..."
@@ -161,7 +161,7 @@ class Open(InteractionType):
 class Move(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully", "aggressively",] 
+        return ["carefully", "aggressively"]
 
     def startInteraction(self):
         return f"interaction move started with options{self._interactionOptions}..."
@@ -169,7 +169,7 @@ class Move(InteractionType):
 class TurnOn(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["",] 
+        return ["fast", "slowly"]
 
     def startInteraction(self):
         return f"interaction turnon started with options{self._interactionOptions}..."
@@ -177,7 +177,7 @@ class TurnOn(InteractionType):
 class TurnOff(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["",] 
+        return ["fast", "slowly"]
 
     def startInteraction(self):
         return f"interaction turnoff started with options{self._interactionOptions}..."
