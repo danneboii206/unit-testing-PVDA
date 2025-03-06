@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 class Game:
     def __init__(self):
+        self.currentGameObj = ""
         self._scene1 = Scene()
         self._scene1.listAvailableElements()
         self._curretGameObj = ""
@@ -18,13 +19,28 @@ class Game:
         except TypeError: #Fixes when someone uses integers instead of strings (shouldn't be possible anyways as input returns string)
             return "Not an option!"
         else:
+<<<<<<< Updated upstream
             return self._curretGameObj.listCurrentInteractionOptions()
         
+=======
+            try:
+                return self._currentGameObj.listCurrentInteractionOptions()
+            except AttributeError:
+                return "Not an option!" #inputting wrong option ends in exception
+    def setInteractionOptions(self, theOptions):
+        options = theOptions.split(",")
+        return self._currentGameObj.setCurrentInteractionOptions(options)
+    
+    def startInteraction(self):
+        return self._currentGameObj.startInteraction()
+
+>>>>>>> Stashed changes
 class Scene:
     def __init__(self):
         self._gameObjList = []
         self._apple = GameObject("apple", ["PickUp", "Drop", "Taste", "Move", "Look"])
         self._chest = GameObject("chest", ["Open", "Look", "Move", "PickUp", "Drop"])
+        self._light = GameObject("light", ["TurnOn", "TurnOff"])
         self._gameObjList.append(self._apple)
         self._gameObjList.append(self._chest)
 
@@ -55,7 +71,7 @@ class GameObject:
     def listInteractionTypes(self):
         interactionStr = ""
         for interaction in self._interactionTypes:
-            interactionStr += f"{interaction}\n"          
+            interactionStr += f"{interaction}\n"
         return interactionStr
 #     def startInteraction(theInteractionType):
 
@@ -81,7 +97,7 @@ class GameObject:
                 raise ValueError(f"Unknown interaction: {theInteraction}")  # Handle unexpected input, should not be possible at this point
 
     def listCurrentInteractionOptions(self):
-        return f"{self._currentInteraction.availableInteractionOptions}"
+        return self._currentInteraction.availableInteractionOptions
 
 #     def setCurrentInteractionOptions():
 
@@ -91,7 +107,7 @@ class InteractionType(ABC):
 
     @property
     @abstractmethod
-    def availableInteractionOptions(self): 
+    def availableInteractionOptions(self):
         pass
 
     @abstractmethod
@@ -105,20 +121,27 @@ class InteractionType(ABC):
 class Drop(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully", "nonchalantly"] 
+        return ["carefully", "nonchalantly"]
 
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
         return super().getAvailableOptions()
     def startInteraction(self):
+<<<<<<< Updated upstream
         print("interaction drop started...")
         return super().startInteraction()
+=======
+        if self._interactionOptions in ["carefully", "nonchalantly"]:
+            return f"interaction drop started with options{self._interactionOptions}..."
+        else:
+            return "Not an option!"
+>>>>>>> Stashed changes
 
 class PickUp(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully", "normaly"] 
+        return ["carefully", "normally"]
 
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
@@ -131,7 +154,7 @@ class PickUp(InteractionType):
 class Look(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully",] 
+        return ["inspect", "vaguely"]
 
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
@@ -144,7 +167,7 @@ class Look(InteractionType):
 class Open(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully",]
+        return ["carefully", "quickly"]
     
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
@@ -157,7 +180,7 @@ class Open(InteractionType):
 class Move(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["carefully", "aggressively",] 
+        return ["carefully", "aggressively"]
 
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
@@ -170,7 +193,7 @@ class Move(InteractionType):
 class TurnOn(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["",] 
+        return ["fast", "slowly"]
 
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
@@ -183,7 +206,7 @@ class TurnOn(InteractionType):
 class TurnOff(InteractionType):
     @property
     def availableInteractionOptions(self):
-        return ["",] 
+        return ["fast", "slowly"]
 
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:

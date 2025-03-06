@@ -13,30 +13,44 @@ def test_SelectObj():
     assert err.type is NameError
 
 def test_SelectInteraction():
-    '''test event 3 and 4'''
+    '''test event 3 & 4'''
     apple = interact.Game()
     apple.selectObject("apple")
 
     chest = interact.Game()
     chest.selectObject("chest")
 
-    applePossibleInteractions = ["PickUp", "Drop", "Taste", "Move", "Look"]
-    chestPossibleInteractions = ["Open", "Look", "Move", "PickUp", "Drop"]
+    dropOptions = ["carefully", "nonchalantly"]
+    pickupOptions = ["carefully", "normally"]
+    lookOptions = ["inspect", "vaguely"]
+    openOptions = ["carefully", "quickly"]
+    moveOptions = ["carefully", "aggressively"]
+    turnOptions = [""]
+    tasteOptions = ["little", "alot"]
 
-    appleWrongInteractions = ["TurnOn", "TurnOff", "Open"]
-    chestWrongInteractions = ["TurnOn", "TurnOff", "Taste"]
+    assert apple.currentGameObj.selectInteraction("PickUp") == pickupOptions
+    assert apple.currentGameObj.selectInteraction("Drop") == dropOptions
+    assert apple.currentGameObj.selectInteraction("Taste") == tasteOptions
+    assert apple.currentGameObj.selectInteraction("Move") == moveOptions
+    assert apple.currentGameObj.selectInteraction("Look") == lookOptions
 
-    randomVals = {"Monkey", 23}
+    assert chest.currentGameObj.selectInteraction("Open") == openOptions
+    assert chest.currentGameObj.selectInteraction("Look") == lookOptions
+    assert chest.currentGameObj.selectInteraction("Move") == moveOptions
+    assert chest.currentGameObj.selectInteraction("PickUp") == pickupOptions
+    assert chest.currentGameObj.selectInteraction("Drop") == dropOptions
 
-    resStrAccepted = "['alot', 'little', 'aggressively', 'gently']"
-    resStrDenied = "Not an option!"
+def test_hello():
+    '''
+    event 3 & 4 failure test
+    '''
+    apple = interact.Game()
+    apple.selectObject("apple")
 
-    #check if valid interactions return right interaction options
-    for element in applePossibleInteractions:
-        assert apple.selectInteraction(f"{element}") == resStrAccepted
-    for element in appleWrongInteractions:
-        assert apple.selectInteraction(f"{element}") == resStrDenied
+    chest = interact.Game()
+    chest.selectObject("chest")
 
+<<<<<<< Updated upstream
     for element in chestPossibleInteractions:
         assert chest.selectInteraction(f"{element}") == resStrAccepted
     for element in chestWrongInteractions:
@@ -47,3 +61,54 @@ def test_SelectInteraction():
         assert apple.selectInteraction(f"{element}" == resStrDenied)
     for element in randomVals:
         assert chest.selectInteraction(f"{element}" == resStrDenied)
+=======
+    assert apple.currentGameObj.selectInteraction("Monkey") == "Not an option!"
+    assert chest.currentGameObj.selectInteraction("Monkey") == "Not an option!"
+    assert apple.currentGameObj.selectInteraction("jfiqor") == "Not an option!"
+    assert chest.currentGameObj.selectInteraction("qokjropqkr") == "Not an option!"
+
+def test_setOptionsStartInteraction():
+    apple = interact.Game()
+    apple.selectObject("apple")
+
+    chest = interact.Game()
+    chest.selectObject("chest")
+    '''
+    self._apple = GameObject("apple", ["PickUp", "Drop", "Taste", "Move", "Look"])
+    self._chest = GameObject("chest", ["Open", "Look", "Move", "PickUp", "Drop"])
+
+    pickupOptions = ["carefully", "normally"]
+    dropOptions = ["carefully", "nonchalantly"]
+    lookOptions = ["inspect", "vaguely"]
+    openOptions = ["carefully", "quickly"]
+    moveOptions = ["carefully", "aggressively"]
+    turnOptions = [""]
+    tasteOptions = ["little", "alot"]
+
+    RES=     interaction pickup started with options['carefully']...
+    '''
+
+    apple.currentGameObj.selectInteraction("PickUp")
+    apple.currentGameObj.setInteractionOptions("carefully")
+    assert apple.currentGameObj.startInteraction() == "interaction pickup started with options['carefully']..."
+
+    apple.currentGameObj.selectInteraction("PickUp")
+    apple.currentGameObj.setInteractionOptions("normally")
+    assert apple.currentGameObj.startInteraction() == "interaction pickup started with options['normally']..."
+
+    apple.currentGameObj.selectInteraction("Drop")
+    apple.currentGameObj.setInteractionOptions("carefully")
+    assert apple.currentGameObj.startInteraction() == "interaction drop started with options['carefully']..."
+
+    apple.currentGameObj.selectInteraction("Drop")
+    apple.currentGameObj.setInteractionOptions("nonchalantly")
+    assert apple.currentGameObj.startInteraction() == "interaction drop started with options['nonchalantly']..."
+
+    apple.currentGameObj.selectInteraction("Look")
+    apple.currentGameObj.setInteractionOptions("vaguely")
+    assert apple.currentGameObj.startInteraction() == "interaction look started with options['inspect']..."
+
+    apple.currentGameObj.selectInteraction("Look")
+    apple.currentGameObj.setInteractionOptions("vaguely")
+    assert apple.currentGameObj.startInteraction() == "interaction look started with options['inspect']..."
+>>>>>>> Stashed changes
