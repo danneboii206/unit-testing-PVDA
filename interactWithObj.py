@@ -81,23 +81,32 @@ class GameObject:
                 raise ValueError(f"Unknown interaction: {theInteraction}")  # Handle unexpected input, should not be possible at this point
 
     def listCurrentInteractionOptions(self):
-        return f"{self._currentInteraction._availableInteractionOptions}"
+        return f"{self._currentInteraction.availableInteractionOptions()}"
 
 #     def setCurrentInteractionOptions():
 
 class InteractionType(ABC):
     def __init__(self):
-        self._availableInteractionOptions = ["alot", "little", "aggressively", "gently"]
-        self._interactionOptions = ""
         super().__init__()
+
+    @property
+    @abstractmethod
+    def availableInteractionOptions(self): 
+        pass
+
     @abstractmethod
     def startInteraction(self):
         pass
+
     @abstractmethod
     def getAvailableOptions(self):
         pass
 
 class Drop(InteractionType):
+    @property
+    def availableInteractionOptions(self):
+        return ["carefully", "nonchalantly"] 
+
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -107,6 +116,10 @@ class Drop(InteractionType):
         return super().startInteraction()
 
 class PickUp(InteractionType):
+    @property
+    def availableInteractionOptions(self):
+        return ["carefully", "normaly"] 
+
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -116,6 +129,10 @@ class PickUp(InteractionType):
         return super().startInteraction()
 
 class Look(InteractionType):
+    @property
+    def availableInteractionOptions(self):
+        return ["carefully",] 
+
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -125,6 +142,10 @@ class Look(InteractionType):
         return super().startInteraction()
 
 class Open(InteractionType):
+    @property
+    def availableInteractionOptions(self):
+        return ["carefully",]
+    
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -134,6 +155,10 @@ class Open(InteractionType):
         return super().startInteraction()
 
 class Move(InteractionType):
+    @property
+    def availableInteractionOptions(self):
+        return ["carefully", "aggressively",] 
+
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -143,6 +168,10 @@ class Move(InteractionType):
         return super().startInteraction()
 
 class TurnOn(InteractionType):
+    @property
+    def availableInteractionOptions(self):
+        return ["",] 
+
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -152,6 +181,10 @@ class TurnOn(InteractionType):
         return super().startInteraction()
 
 class TurnOff(InteractionType):
+    @property
+    def availableInteractionOptions(self):
+        return ["",] 
+
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
@@ -161,6 +194,10 @@ class TurnOff(InteractionType):
         return super().startInteraction()
 
 class Taste(InteractionType):
+    @property
+    def availableInteractionOptions(self):
+        return ["little", "alot"] 
+    
     def getAvailableOptions(self):
         for option in self._availableInteractionOptions:
             print(option)
