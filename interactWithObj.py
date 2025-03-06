@@ -88,7 +88,10 @@ class GameObject:
                 raise ValueError(f"Unknown interaction: {theInteraction}")  # Handle unexpected input, should not be possible at this point
 
     def listCurrentInteractionOptions(self):
-        return self._currentInteraction.availableInteractionOptions
+        try:
+            return self._currentInteraction.availableInteractionOptions
+        except AttributeError:
+            return "Not an option!"
 
     def setCurrentInteractionOptions(self, options):
         return self._currentInteraction.setInteractionOptions(options)
