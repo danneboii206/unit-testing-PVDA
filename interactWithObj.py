@@ -12,13 +12,10 @@ class Game:
         raise NameError("No such object")
 
     def selectInteraction(self, theInteraction):
-        try:
-            if theInteraction in self._curretGameObj.listInteractionTypes():
-                self._curretGameObj.setCurrentInteraction(theInteraction)
-                return self._curretGameObj.listCurrentInteractionOptions()
-            return "Not an option!"
-        except TypeError: #Fixes when someone uses integers instead of strings (shouldn't be possible anyways as input returns string)
-            return "Not an option!"
+        if theInteraction in self._curretGameObj.listInteractionTypes():
+            self._curretGameObj.setCurrentInteraction(theInteraction)
+            return self._curretGameObj.listCurrentInteractionOptions()
+        return "Not an option!"
 
 class Scene:
     def __init__(self):
