@@ -19,10 +19,6 @@ class Game:
         except TypeError: #Fixes when someone uses integers instead of strings (shouldn't be possible anyways as input returns string)
             return "Not an option!"
         else:
-<<<<<<< Updated upstream
-            return self._curretGameObj.listCurrentInteractionOptions()
-        
-=======
             try:
                 return self._currentGameObj.listCurrentInteractionOptions()
             except AttributeError:
@@ -34,7 +30,6 @@ class Game:
     def startInteraction(self):
         return self._currentGameObj.startInteraction()
 
->>>>>>> Stashed changes
 class Scene:
     def __init__(self):
         self._gameObjList = []
@@ -128,15 +123,10 @@ class Drop(InteractionType):
             print(option)
         return super().getAvailableOptions()
     def startInteraction(self):
-<<<<<<< Updated upstream
-        print("interaction drop started...")
-        return super().startInteraction()
-=======
         if self._interactionOptions in ["carefully", "nonchalantly"]:
             return f"interaction drop started with options{self._interactionOptions}..."
         else:
             return "Not an option!"
->>>>>>> Stashed changes
 
 class PickUp(InteractionType):
     @property

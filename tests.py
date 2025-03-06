@@ -50,18 +50,6 @@ def test_hello():
     chest = interact.Game()
     chest.selectObject("chest")
 
-<<<<<<< Updated upstream
-    for element in chestPossibleInteractions:
-        assert chest.selectInteraction(f"{element}") == resStrAccepted
-    for element in chestWrongInteractions:
-        assert chest.selectInteraction(f"{element}") == resStrDenied
-
-    #check random value
-    for element in randomVals:
-        assert apple.selectInteraction(f"{element}" == resStrDenied)
-    for element in randomVals:
-        assert chest.selectInteraction(f"{element}" == resStrDenied)
-=======
     assert apple.currentGameObj.selectInteraction("Monkey") == "Not an option!"
     assert chest.currentGameObj.selectInteraction("Monkey") == "Not an option!"
     assert apple.currentGameObj.selectInteraction("jfiqor") == "Not an option!"
@@ -111,4 +99,3 @@ def test_setOptionsStartInteraction():
     apple.currentGameObj.selectInteraction("Look")
     apple.currentGameObj.setInteractionOptions("vaguely")
     assert apple.currentGameObj.startInteraction() == "interaction look started with options['inspect']..."
->>>>>>> Stashed changes
