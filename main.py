@@ -21,7 +21,6 @@ def main():
         res = game.currentGameObj.selectInteraction(usrInput)
         while res == "Not an option!":
             print(res)
-            print(game.selectObject(usrInput))
             usrInput2 = input("Select interaction: ")
             res =  game.currentGameObj.selectInteraction(usrInput2)
         print(f"\nSelect interaction options:\n{res}")

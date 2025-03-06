@@ -34,7 +34,11 @@ class GameObjInterface:
     
     def startInteraction(self):
         return self._currentGameObj.startInteraction()
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
 class Scene:
     def __init__(self):
         self._gameObjList = []
