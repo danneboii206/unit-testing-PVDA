@@ -10,7 +10,8 @@ class Game:
         if GameObj != None:
             self.currentGameObj = GameObjInterface(GameObj)
             return GameObj.listInteractionTypes() #if exist return interactions
-        raise NameError("No such object")
+        else:
+            return None
 
 class GameObjInterface:
     def __init__(self, GameObj):
@@ -23,7 +24,10 @@ class GameObjInterface:
         except TypeError: #Fixes when someone uses integers instead of strings (shouldn't be possible anyways as input returns string)
             return "Not an option!"
         else:
-            return self._currentGameObj.listCurrentInteractionOptions()
+            try:
+                return self._currentGameObj.listCurrentInteractionOptions()
+            except AttributeError:
+                return "Not an option!"
     def setInteractionOptions(self, theOptions):
         options = theOptions.split(",")
         return self._currentGameObj.setCurrentInteractionOptions(options)
@@ -111,6 +115,10 @@ class InteractionType(ABC):
         pass
 
     def setInteractionOptions(self, options):
+        for option in options:
+            if option not in self.availableInteractionOptions:
+                options.remove(option)
+
         for option in options:
             self._interactionOptions.append(option)
 
