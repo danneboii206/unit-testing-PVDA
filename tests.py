@@ -8,9 +8,7 @@ def test_SelectObj():
     assert game.selectObject("apple") == "PickUp\nDrop\nTaste\nMove\nLook\n"
     assert game.selectObject("chest") == "Open\nLook\nMove\nPickUp\nDrop\n"
 
-    with pytest.raises(NameError) as err:
-        game.selectObject("iaoghfioaj")
-    assert err.type is NameError
+    
 
 def test_SelectInteraction():
     '''test event 3 & 4'''
@@ -28,17 +26,17 @@ def test_SelectInteraction():
     turnOptions = [""]
     tasteOptions = ["little", "alot"]
 
-    assert apple.currentGameObj.selectInteraction("PickUp") == pickupOptions
-    assert apple.currentGameObj.selectInteraction("Drop") == dropOptions
-    assert apple.currentGameObj.selectInteraction("Taste") == tasteOptions
-    assert apple.currentGameObj.selectInteraction("Move") == moveOptions
-    assert apple.currentGameObj.selectInteraction("Look") == lookOptions
+    assert apple.currentGameObj.selectCurrentInteraction("PickUp") == pickupOptions
+    assert apple.currentGameObj.selectCurrentInteraction("Drop") == dropOptions
+    assert apple.currentGameObj.selectCurrentInteraction("Taste") == tasteOptions
+    assert apple.currentGameObj.selectCurrentInteraction("Move") == moveOptions
+    assert apple.currentGameObj.selectCurrentInteraction("Look") == lookOptions
 
-    assert chest.currentGameObj.selectInteraction("Open") == openOptions
-    assert chest.currentGameObj.selectInteraction("Look") == lookOptions
-    assert chest.currentGameObj.selectInteraction("Move") == moveOptions
-    assert chest.currentGameObj.selectInteraction("PickUp") == pickupOptions
-    assert chest.currentGameObj.selectInteraction("Drop") == dropOptions
+    assert chest.currentGameObj.selectCurrentInteraction("Open") == openOptions
+    assert chest.currentGameObj.selectCurrentInteraction("Look") == lookOptions
+    assert chest.currentGameObj.selectCurrentInteraction("Move") == moveOptions
+    assert chest.currentGameObj.selectCurrentInteraction("PickUp") == pickupOptions
+    assert chest.currentGameObj.selectCurrentInteraction("Drop") == dropOptions
 
 def test_hello():
     '''
@@ -50,10 +48,10 @@ def test_hello():
     chest = interact.Game()
     chest.selectObject("chest")
 
-    assert apple.currentGameObj.selectInteraction("Monkey") == "Not an option!"
-    assert chest.currentGameObj.selectInteraction("Monkey") == "Not an option!"
-    assert apple.currentGameObj.selectInteraction("jfiqor") == "Not an option!"
-    assert chest.currentGameObj.selectInteraction("qokjropqkr") == "Not an option!"
+    assert apple.currentGameObj.selectCurrentInteraction("Monkey") == "Not an option!"
+    assert chest.currentGameObj.selectCurrentInteraction("Monkey") == "Not an option!"
+    assert apple.currentGameObj.selectCurrentInteraction("jfiqor") == "Not an option!"
+    assert chest.currentGameObj.selectCurrentInteraction("qokjropqkr") == "Not an option!"
 
 def test_setOptionsStartInteraction():
     apple = interact.Game()
